@@ -10,16 +10,17 @@
 
       <v-icon size="100px" color="teal lighten-1">mdi-clouds</v-icon>
 
-      <v-toolbar-title style="font-size: x-large">Weather Forecast</v-toolbar-title>
+      <v-toolbar-title style="font-size: x-large" v-if="!$vuetify.breakpoint.mobile">Weather Forecast</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-btn color="teal lighten-1" v-if="authenticate" dark>LOG OUT</v-btn>
+      <v-btn color="teal lighten-1" v-if="authenticate" dark @click="logout">LOG OUT</v-btn>
     </v-app-bar>
   </div>
 
 </template>
 <script>
 import {get} from "vuex-pathify";
+import {mapActions} from "vuex";
 
 export default {
   computed:{
@@ -33,6 +34,14 @@ export default {
       deep: true
     },
   },
+  methods:{
+    ...mapActions({
+      logout:'authuser/logout',
+    }),
+    logout(){
+      this.logout()
+    }
+  }
 }
 
 </script>

@@ -70,6 +70,10 @@ export const authuser = {
                 console.log(error)
             })
         },
+        logout(){
+            localStorage.removeItem('vuex');
+            router.push('/')
+        }
     }
 }
 

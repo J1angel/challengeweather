@@ -7,6 +7,7 @@ import store from '@/store';
 Vue.config.productionTip = false
 
 Vue.use(router)
+Vue.use(require('vue-moment'))
 
 Vue.component('nav-bar', require('./components/NavigationBar.vue').default);
 
