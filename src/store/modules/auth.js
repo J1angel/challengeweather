@@ -76,10 +76,13 @@ export const authuser = {
                     store.dispatch('user/saveuser', response.data)
                     router.push({name:'homescreen'})
                 }).catch(error => {
-                    console.log(error)
+                    this.logoutuser()
+                    alert(error.response.data.message)
                 })
             }).catch(error => {
-                console.log(error)
+                this.logoutuser()
+                alert(error.response.data.message)
+
             })
         },
         logoutuser({commit}){

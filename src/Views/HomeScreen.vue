@@ -72,6 +72,7 @@ export default {
         this.savecity(response.data)
         router.push({name:'weatherscreen'})
       }).catch(error => {
+        this.citychoice = null
         alert(error.response.data.message)
       })
     }
