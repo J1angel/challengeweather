@@ -15,11 +15,14 @@
               label="City"
               outlined
               dense
-              :item-text="item=> item.name+', '+item.country "
-              :item-value="item => item.id"
+              item-text="name"
+              item-value="id"
               :rules="rules"
               prepend-inner-icon="mdi-magnify"
           >
+            <template v-slot:item="{ item }">
+              {{ item.name }}, {{item.country}}
+            </template>
           </v-combobox>
         <br><v-btn  color="teal lighten-1" @click="displayweather" :disabled="allowed">Display Weather</v-btn>
         </div>
