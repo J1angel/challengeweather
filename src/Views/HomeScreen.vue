@@ -5,8 +5,8 @@
 
       <!-- Provides the application the proper gutter -->
       <v-container fluid style="height: 600px" class="mb-12 d-flex flex-column justify-center align-center">
-        <div v-if="!$vuetify.breakpoint.mobile">
-          {{username}}<br> {{userurl}}
+        <div v-if="!$vuetify.breakpoint.mobile" class="text-center">
+          {{username}}<br><br> {{userurl}}
         </div><br><br>
         <div class="text-center">
           <v-select

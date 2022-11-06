@@ -1,3 +1,10 @@
+const getDefaultState = () => {
+    return {
+        name:null,
+        url:null
+    }
+}
+
 export const user = {
     namespaced: true,
     state: {
@@ -23,13 +30,19 @@ export const user = {
         url(state,value){
             state.url = value
         },
+        resetState(state) {
+            Object.assign(state, getDefaultState())
+        }
     },
 
     actions: {
        saveuser({commit},value){
            commit('name', value.name)
            commit('url', value.html_url)
-       }
+       },
+        resetState2({commit}){
+            commit('resetState')
+        }
     }
 }
 

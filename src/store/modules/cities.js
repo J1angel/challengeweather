@@ -1,4 +1,8 @@
-
+const getDefaultState = () => {
+    return {
+        cities:[]
+    }
+}
 
 export const cities = {
     namespaced: true,
@@ -19,9 +23,15 @@ export const cities = {
         cities(state,value) {
             state.cities = value
         },
+        resetState(state) {
+            Object.assign(state, getDefaultState())
+        }
     },
 
     actions: {
+        resetState3({commit}){
+            commit('resetState')
+        }
      /*   getcities({commit}) {
 
                 const arrays = Object.values(city).map(arr => ({

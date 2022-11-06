@@ -20,8 +20,7 @@
 </template>
 <script>
 import {get} from "vuex-pathify";
-import {mapActions} from "vuex";
-
+import store from "@/store";
 export default {
   computed:{
     authenticate:get('authuser/isAuthenticated')
@@ -35,11 +34,8 @@ export default {
     },
   },
   methods:{
-    ...mapActions({
-      logout:'authuser/logout',
-    }),
     logout(){
-      this.logout()
+      store.dispatch('authuser/logoutuser')
     }
   }
 }

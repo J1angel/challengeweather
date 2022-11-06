@@ -2,7 +2,16 @@ import GithubApi from '@/axiosapi/githubapi'
 import router from '@/routes';
 import store from "@/store";
 
+const getDefaultState = () => {
+    return {
+        isAuthenticated: false,
+        userinfo:{},
+        code:null,
+        accessToken:null
+    }
+}
 export const authuser = {
+
     namespaced: true,
     state: {
         isAuthenticated: false,
@@ -40,6 +49,9 @@ export const authuser = {
         },
         user(state, value){
             state.userinfo = value
+        },
+        resetState(state) {
+            Object.assign(state, getDefaultState())
         }
     },
 
@@ -70,9 +82,12 @@ export const authuser = {
                 console.log(error)
             })
         },
-        logout(){
-            localStorage.removeItem('vuex');
-            router.push('/')
+        logoutuser({commit}){
+            commit('resetState')
+            store.dispatch('user/resetState2')
+            store.dispatch('weather/resetState1')
+            store.dispatch('cities/resetState3')
+            router.push({name:'landingscreen'})
         }
     }
 }
