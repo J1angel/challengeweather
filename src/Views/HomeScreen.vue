@@ -9,18 +9,19 @@
           {{username}}<br><br> {{userurl}}
         </div><br><br>
         <div class="text-center">
-          <v-select
+          <v-combobox
               v-model="citychoice"
-              :items="city1"
+              :items="cities"
               label="City"
-              dense
               outlined
-              full-width
-              prepend-inner-icon="mdi-magnify"
-              item-text="name"
-              item-value="id"
+              dense
+              :item-text="item=> item.name+', '+item.country "
+              :item-value="item => item.id"
               :rules="rules"
-          ></v-select><br><v-btn  color="teal lighten-1" @click="displayweather" :disabled="allowed">Display Weather</v-btn>
+              prepend-inner-icon="mdi-magnify"
+          >
+          </v-combobox>
+        <br><v-btn  color="teal lighten-1" @click="displayweather" :disabled="allowed">Display Weather</v-btn>
         </div>
       </v-container>
     </v-main>
@@ -32,20 +33,23 @@ import {get} from "vuex-pathify";
 import {mapActions} from "vuex";
 import WeatherApi from "@/axiosapi/weatherapi"
 import router from '@/routes';
+import cities1 from '@/store/city.list.json'
+
 
 export default {
   name:'HomeScreen',
   data: () => ({
     items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     citychoice:null,
-    city1:[{'id':833, name: 'Ḩeşār-e Sefīd, IR'}],
     rules:[v => !!v || 'Must select an item'],
-    allowed:true
+    allowed:true,
   }),
   computed:{
     username:get('user/name'),
     userurl:get('user/url'),
-  /*  cities:get('cities/cities')*/
+    cities() {
+      return cities1
+    }
   },
   watch:{
     'citychoice':{
@@ -59,16 +63,13 @@ export default {
       deep: true
     },
   },
- /* created() {
-    this.initialize()
-  },*/
   methods:{
     ...mapActions({
-      getcities:'cities/getcities',
       savecity:'weather/savecityinfo'
     }),
     displayweather(){
-      WeatherApi.getweather(this.citychoice).then(response => {
+      console.log(this.citychoice)
+      WeatherApi.getweather(this.citychoice.id).then(response => {
         this.savecity(response.data)
         router.push({name:'weatherscreen'})
       }).catch(error => {
@@ -76,11 +77,6 @@ export default {
         alert(error.response.data.message)
       })
     }
-    /*initialize(){
-      if (this.cities.length === 0){
-        this.getcities()
-      }
-    }*/
   }
 }
 </script>

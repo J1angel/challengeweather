@@ -76,20 +76,23 @@ export const authuser = {
                     store.dispatch('user/saveuser', response.data)
                     router.push({name:'homescreen'})
                 }).catch(error => {
-                    this.logoutuser()
                     alert(error.response.data.message)
+                    store.dispatch('user/resetState2')
+                    store.dispatch('weather/resetState1')
+                    router.push({name:'landingscreen'})
+
                 })
             }).catch(error => {
-                this.logoutuser()
                 alert(error.response.data.message)
-
+                store.dispatch('user/resetState2')
+                store.dispatch('weather/resetState1')
+                router.push({name:'landingscreen'})
             })
         },
         logoutuser({commit}){
             commit('resetState')
             store.dispatch('user/resetState2')
             store.dispatch('weather/resetState1')
-            store.dispatch('cities/resetState3')
             router.push({name:'landingscreen'})
         }
     }
